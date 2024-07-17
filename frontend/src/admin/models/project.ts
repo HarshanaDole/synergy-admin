@@ -1,5 +1,6 @@
-export interface Client {
+export interface Project {
   _id: string;
+  imageUrl: string;
   type: string;
   client: string;
   location: string;

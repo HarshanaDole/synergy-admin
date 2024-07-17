@@ -1,4 +1,4 @@
-import { Client as Project } from "../admin/models/project";
+import { Project } from "../admin/models/project";
 
 async function fetchData(input: RequestInfo, init?: RequestInit) {
   const response = await fetch(input, init);
@@ -29,6 +29,7 @@ export async function fetchProject(projectId?: string): Promise<Project> {
 }
 
 export interface ProjectInput {
+  imageUrl?: string;
   type: string;
   client: string;
   location: string;
@@ -36,29 +37,29 @@ export interface ProjectInput {
   description?: string;
 }
 
-export async function createProject(project: ProjectInput): Promise<Project> {
+export async function createProject(project: FormData): Promise<Project> {
   const response = await fetchData("http://localhost:5000/api/projects", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(project),
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
+    body: project,
   });
   return response.json();
 }
 
 export async function updateProject(
   projectId: string,
-  project: ProjectInput
+  project: FormData
 ): Promise<Project> {
   const response = await fetchData(
     "http://localhost:5000/api/projects/" + projectId,
     {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(project),
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+      body: project,
     }
   );
   return response.json();

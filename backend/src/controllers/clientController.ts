@@ -44,7 +44,9 @@ export const createClient: RequestHandler<
 > = async (req, res, next) => {
   const { name } = req.body;
   console.log("req file :", req.file);
-  const imageUrl = (req.file as Express.Multer.File).path;
+  const imageUrl = req.file
+    ? (req.file as Express.Multer.File).path
+    : undefined;
 
   try {
     if (!imageUrl) {
@@ -100,6 +102,9 @@ export const updateClient: RequestHandler<
 
     if (!client) {
       throw createHttpError(404, "Client not found");
+    }
+    if (!client.imageUrl && !newImageUrl) {
+      throw createHttpError(400, `Client must have an image`);
     }
 
     if (newName !== undefined) client.name = newName;

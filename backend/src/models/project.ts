@@ -2,6 +2,7 @@ import { InferSchemaType, Schema, model } from "mongoose";
 
 const projectSchema = new Schema(
   {
+    imageUrl: { type: String, required: true },
     type: { type: String, required: true },
     client: { type: String, required: true },
     location: { type: String, required: true },

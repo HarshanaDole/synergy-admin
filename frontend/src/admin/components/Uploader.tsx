@@ -8,7 +8,9 @@ interface UploaderProps {
   onImageChange: (file: File | null) => void;
   setImage: React.Dispatch<React.SetStateAction<File | null>>;
   image: File | null;
+  setDefaultImage: React.Dispatch<React.SetStateAction<string | null>>;
   defaultImage?: string | null;
+  showError: boolean;
 }
 
 const Uploader: React.FC<UploaderProps> = ({
@@ -16,6 +18,8 @@ const Uploader: React.FC<UploaderProps> = ({
   setImage,
   image,
   defaultImage,
+  setDefaultImage,
+  showError,
 }) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState("No image selected");
@@ -39,6 +43,7 @@ const Uploader: React.FC<UploaderProps> = ({
   const removeImage = () => {
     setFileName("No image selected");
     setImage(null);
+    setDefaultImage(null);
     onImageChange(null);
   };
 
@@ -61,20 +66,13 @@ const Uploader: React.FC<UploaderProps> = ({
     }
   }, [image, defaultImage]);
 
-  useEffect(() => {
-    // Update fileName when defaultImage changes
-    if (defaultImage && !image) {
-      setFileName(getImageFileName(defaultImage));
-    }
-  }, [defaultImage, image]);
-
-  console.log("image after remove: ", image);
-  console.log("defaultImage after remove: ", defaultImage);
-  console.log("fileName after remove: ", fileName);
-
   return (
     <div className="uploader-container">
-      <button type="button" className="uploader" onClick={handleFileClick}>
+      <button
+        type="button"
+        className={`uploader ${showError ? "uploader-error" : ""}`}
+        onClick={handleFileClick}
+      >
         <input
           type="file"
           accept="image/*"
@@ -113,6 +111,7 @@ const Uploader: React.FC<UploaderProps> = ({
         {(image || defaultImage) && (
           <MdDelete className="delete-icon" onClick={removeImage} />
         )}
+        {showError && <p className="image-error-message">Image is Required</p>}
       </div>
     </div>
   );

@@ -32,6 +32,7 @@ export const getProject: RequestHandler = async (req, res, next) => {
 };
 
 interface CreateProjectBody {
+  imageUrl?: string;
   type?: string;
   client?: string;
   location?: string;
@@ -46,6 +47,9 @@ export const createProject: RequestHandler<
   unknown
 > = async (req, res, next) => {
   const { type, client, location, year, description } = req.body;
+  const imageUrl = req.file
+    ? (req.file as Express.Multer.File).path
+    : undefined;
 
   const requiredFields: (keyof CreateProjectBody)[] = [
     "type",
@@ -55,6 +59,9 @@ export const createProject: RequestHandler<
   ];
 
   try {
+    if (!imageUrl) {
+      throw createHttpError(400, `Client must have an image`);
+    }
     for (const field of requiredFields) {
       if (!req.body[field]) {
         throw createHttpError(400, `Project must have a ${field}`);
@@ -62,6 +69,7 @@ export const createProject: RequestHandler<
     }
 
     const newProject = await ProjectModel.create({
+      imageUrl,
       type,
       client,
       location,
@@ -76,10 +84,11 @@ export const createProject: RequestHandler<
 };
 
 interface UpdateProjectParams {
-  projectId: string;
+  projectId?: string;
 }
 
 interface UpdateProjectBody {
+  imageUrl?: string;
   type?: string;
   client?: string;
   location?: string;
@@ -93,6 +102,9 @@ export const updateProject: RequestHandler<
   UpdateProjectBody,
   unknown
 > = async (req, res, next) => {
+  const newImageUrl = req.file
+    ? (req.file as Express.Multer.File).path
+    : undefined;
   const projectId = req.params.projectId;
   const newType = req.body.type;
   const newClient = req.body.client;
@@ -111,6 +123,7 @@ export const updateProject: RequestHandler<
     if (!mongoose.isValidObjectId(projectId)) {
       throw createHttpError(400, "Invalid Project id");
     }
+
     requiredFields.forEach((field) => {
       if (!req.body[field]) {
         throw createHttpError(400, `Project must have a ${field}`);
@@ -122,7 +135,11 @@ export const updateProject: RequestHandler<
     if (!project) {
       throw createHttpError(404, "Project not found");
     }
+    if (!project.imageUrl && !newImageUrl) {
+      throw createHttpError(400, `Client must have an image`);
+    }
 
+    if (newImageUrl !== undefined) project.imageUrl = newImageUrl;
     if (newType !== undefined) project.type = newType;
     if (newClient !== undefined) project.client = newClient;
     if (newLocation !== undefined) project.location = newLocation;

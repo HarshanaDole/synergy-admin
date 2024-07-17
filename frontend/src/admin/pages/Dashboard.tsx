@@ -40,11 +40,35 @@ function Dashboard() {
             <div className="icon">
               <i className="ri-add-box-fill"></i>
             </div>
+<<<<<<< HEAD
             <div className="text">New Project</div>
           </Link>
           <Link to="/admin/manage-blogs" className="box">
             <div className="icon">
               <i className="ri-news-fill"></i>
+=======
+            <Link to="/admin/clients">
+              <div className="box">
+                <div className="icon">
+                  <i className="ri-shake-hands-fill"></i>
+                </div>
+                <div className="text">Manage Clients</div>
+              </div>
+            </Link>
+            <Link to="/admin/projects">
+              <div className="box">
+                <div className="icon">
+                  <i className="ri-bar-chart-box-fill"></i>
+                </div>
+                <div className="text">All Projects ({projects.length})</div>
+              </div>
+            </Link>
+            <div className="box">
+              <div className="icon">
+                <i className="ri-mail-fill"></i>
+              </div>
+              <div className="text">Messages</div>
+>>>>>>> eec34074fcb6ca06be8d30e0d831bd70166212a6
             </div>
             <div className="text">Manage Blogs</div>
           </Link>

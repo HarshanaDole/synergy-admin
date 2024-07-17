@@ -2,15 +2,19 @@ import "../css/main.css";
 import "../css/table.css";
 import Header from "../components/Header";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Client as ProjectModel } from "../models/project";
+import { Project as ProjectModel } from "../models/project";
 import { HiDotsVertical } from "react-icons/hi";
 import * as ProjectsApi from "../../network/projects_api";
 import SearchBar from "../components/SearchProject";
 import SmallButton from "../components/SmallButton";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 function Projects() {
   const [projects, setProjects] = useState<ProjectModel[]>([]);
+  const [projectsLoading, setProjectsLoading] = useState(true);
+  const [showProjectsLoadingError, setShowProjectsLoadingError] =
+    useState(false);
   const [query, setQuery] = useState("");
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -18,11 +22,15 @@ function Projects() {
   useEffect(() => {
     async function loadProjects() {
       try {
+        setShowProjectsLoadingError(false);
+        setProjectsLoading(true);
         const projects = await ProjectsApi.fetchProjects();
         setProjects(projects);
       } catch (error) {
         console.error(error);
-        alert(error);
+        setShowProjectsLoadingError(true);
+      } finally {
+        setProjectsLoading(false);
       }
     }
     loadProjects();
@@ -61,6 +69,59 @@ function Projects() {
     setQuery(value);
   };
 
+  const formatImageUrl = (url: string) => {
+    if (url) {
+      return url.replace("public\\", "http://localhost:5000/");
+    }
+  };
+
+  const projectsTable = (
+    <>
+      {filteredItems.map((project, index) => (
+        <tr key={project._id}>
+          <td>{index + 1}</td>
+          <td className="image-cell">
+            <img
+              src={formatImageUrl(project.imageUrl)}
+              alt={project.imageUrl || "image"}
+              className="image"
+            />
+          </td>
+          <td>{project.type}</td>
+          <td>{project.client}</td>
+          <td>{project.location}</td>
+          <td>{project.year}</td>
+          <td id="menu-container">
+            {activeProjectId === project._id && (
+              <div className="popup-menu">
+                <button
+                  className="popup-btn"
+                  onClick={() => handleEditClick(project)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="popup-btn"
+                  onClick={() => handleDeleteClick(project)}
+                >
+                  Delete
+                </button>
+              </div>
+            )}
+            <button
+              className="menu-icon"
+              onClick={() => {
+                togglePopup(project._id);
+              }}
+            >
+              <HiDotsVertical />
+            </button>
+          </td>
+        </tr>
+      ))}
+    </>
+  );
+
   return (
     <div>
       <Header />
@@ -70,55 +131,38 @@ function Projects() {
           <SmallButton to="/admin/projects/add" />
         </div>
 
-        <table className="tbl">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Type</th>
-              <th>Client</th>
-              <th>Location</th>
-              <th>Year</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredItems.map((project, index) => (
-              <tr key={project._id}>
-                <td>{index + 1}</td>
-                <td>{project.type}</td>
-                <td>{project.client}</td>
-                <td>{project.location}</td>
-                <td>{project.year}</td>
-                <td id="menu-container">
-                  {activeProjectId === project._id && (
-                    <div className="popup-menu">
-                      <button
-                        className="popup-btn"
-                        onClick={() => handleEditClick(project)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="popup-btn"
-                        onClick={() => handleDeleteClick(project)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                  <button
-                    className="menu-icon"
-                    onClick={() => {
-                      togglePopup(project._id);
-                    }}
-                  >
-                    <HiDotsVertical />
-                  </button>
-                </td>
+        {projectsLoading && <Spinner fullPage color="var(--main-color)" />}
+        {showProjectsLoadingError && (
+          <p style={{ textAlign: "center" }}>
+            Something went wrong. Please refresh the page.
+          </p>
+        )}
+        {!projectsLoading && !showProjectsLoadingError && (
+          <table className="tbl">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Image</th>
+                <th>Type</th>
+                <th>Client</th>
+                <th>Location</th>
+                <th>Year</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {projects.length > 0 ? (
+                projectsTable
+              ) : (
+                <tr>
+                  <td colSpan={7} style={{ textAlign: "center" }}>
+                    You don't have any projects yet.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
       </section>
     </div>
   );
