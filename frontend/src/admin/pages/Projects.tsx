@@ -5,7 +5,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Client as ProjectModel } from "../models/project";
 import { HiDotsVertical } from "react-icons/hi";
 import * as ProjectsApi from "../../network/projects_api";
-import SearchBar from "../components/Search";
+import SearchBar from "../components/SearchProject";
 import SmallButton from "../components/SmallButton";
 import { useNavigate } from "react-router-dom";
 
