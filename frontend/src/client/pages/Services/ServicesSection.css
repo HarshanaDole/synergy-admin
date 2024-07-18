@@ -1,0 +1,166 @@
+/* Global box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.services-section {
+  padding: 4rem 10rem;
+  text-align: center;
+}
+
+.line-servicesSec {
+  width: 10%;
+  border-top: 2px solid #0592c8;
+  margin: 3rem auto 1rem;
+}
+
+.services-section h2 {
+  font-size: 4rem;
+  margin-bottom: 5rem;
+  color: #333;
+  text-align: center;
+}
+
+.services-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  flex: 1 1 calc(33.333% - 2rem); /* Ensure 3 cards side by side with gap */
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8), 0 6px 20px rgba(0, 0, 0, 0.4);
+  text-align: left;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+  min-width: 250px;
+  margin-bottom: 2rem;
+}
+
+.service-card-consulting {
+  background-color: #0592c8;
+}
+
+.service-card-designing {
+  background-color: #014c59;
+}
+
+.service-card-contracting {
+  background-color: #161616;
+}
+
+.service-card h3 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.service-card p {
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+.line-servicesSec-last {
+  width: 10%;
+  border-top: 2px solid #0592c8;
+  margin: 6rem auto 1rem;
+}
+
+.final-text-serviceSec {
+  font-family: "Kite One", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 25px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Responsive styling */
+/* Large screens (desktops) */
+@media (min-width: 992px) {
+  .services-section {
+    padding: 4rem 4rem;
+  }
+
+  .services-container {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  .service-card {
+    flex: 0 1 30%; /* Ensure 3 cards side by side */
+    max-width: 30%;
+    padding: 1.5rem; /* Reduce padding */
+  }
+
+  .service-card h3 {
+    font-size: 2rem; /* Reduce font size */
+  }
+
+  .service-card p {
+    font-size: 1.1rem; /* Reduce font size */
+  }
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 991px) {
+  .services-section {
+    padding: 3rem 4rem;
+  }
+
+  .services-section h2 {
+    font-size: 3rem;
+  }
+
+  .service-card {
+    flex: 1 1 70%; /* 2 cards side by side */
+    max-width: 70%;
+  }
+
+  .service-card h3 {
+    font-size: 2rem;
+  }
+
+  .service-card p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Small screens (phones) */
+@media (max-width: 576px) {
+  .services-section {
+    padding: 2rem;
+  }
+
+  .services-section h2 {
+    font-size: 2.5rem;
+  }
+
+  .services-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .service-card {
+    flex: 1 1 80%;
+    max-width: 80%;
+    min-width: unset;
+  }
+
+  .service-card h3 {
+    font-size: 1.8rem;
+  }
+
+  .service-card p {
+    font-size: 1rem;
+  }
+}

@@ -1,42 +1,52 @@
+/* dashboard.css */
+
 .dashboard {
   display: flex;
-  align-items: start;
-  justify-content: center;
-  gap: 4rem;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
 }
 
-.dashboard .left-column .welcome {
+.dashboard .top-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard .top-center .welcome {
   font-size: 1.6rem;
   margin-bottom: 1rem;
 }
 
-.dashboard .left-column .notification {
+.dashboard .top-center .notification {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
 }
 
-.dashboard .left-column .link {
+.dashboard .top-center .link a {
   color: var(--link);
   cursor: pointer;
+  text-decoration: none;
 }
 
-.dashboard .left-column .link:hover {
+.dashboard .top-center .link a:hover {
   color: var(--aqua);
 }
 
-.dashboard .right-column .box-container {
-  background-color: var(--bg-blue);
-  padding: 2rem;
+.dashboard .box-container {
   display: grid;
-  grid-template-columns: repeat(3, minmax(11rem, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  height: 300px;
+  padding: 2rem;
   border-radius: 8px;
-  justify-content: center;
-  align-items: center;
 }
 
-.dashboard .right-column .box-container .box {
-  background-color: var(--link);
+.dashboard .box-container .box {
+  background-color: #0592C8;
   color: var(--white);
   padding: 1.5rem;
   display: flex;
@@ -46,36 +56,40 @@
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s ease;
+  text-decoration: none;
 }
 
-.dashboard .right-column .box-container .box:hover {
+.dashboard .box-container .box:hover {
   background-color: var(--aqua);
 }
 
-.dashboard .right-column .box-container .box .icon {
+.dashboard .box-container .box .icon {
   font-size: 2rem;
+  margin-bottom: 0.5rem;
+  border: none;
 }
 
-.dashboard .right-column .box-container .box .text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.dashboard .box-container .box .text {
   text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .dashboard .box-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
   .dashboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    padding: 1rem;
   }
-}
 
-@media (max-width: 640px) {
-  .dashboard .right-column .box-container {
-    grid-template-columns: repeat(2, 1fr);
-    align-items: stretch;
+  .dashboard .top-center {
+    margin-bottom: 1rem;
+  }
+
+  .dashboard .box-container {
+    padding: 1rem;
+    grid-template-columns: repeat(1, 1fr);
   }
 }
