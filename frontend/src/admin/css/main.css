@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 :root {
-  --main-color: #0592C8;
+  --main-color: #47acc9;
   --white: #ffffff;
   --whitesmoke: rgb(231, 231, 231);
   --grey: #acacac;
@@ -259,7 +259,7 @@ section {
 .btn:hover,
 .add-btn:hover {
   background-color: var(--aqua);
-  border: 2px solid #014c59;
+  border: 2px solid var(--aqua);
 }
 
 .search-container {

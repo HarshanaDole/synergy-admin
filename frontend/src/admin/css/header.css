@@ -1,44 +1,5 @@
-/* Dropdown menu styles */
-.dropdown-menu {
-  position: absolute;
-  top: 3.5rem; /* Adjusted for better placement */
-  right: 0;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-  animation: dropdown 0.3s ease-in-out;
-  z-index: 10; /* Ensure it appears above other content */
-}
-
-.dropdown-item {
-  padding: 1rem;
-  white-space: nowrap;
-  cursor: pointer;
-  color: #333;
-  text-decoration: none;
-  display: block;
-  font-size: 1rem; /* Reduced font size */
-}
-
-.dropdown-item:hover {
-  background-color: #f1f1f1;
-}
-
-@keyframes dropdown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Integrating with existing header styles */
 .header {
-  background: linear-gradient(90deg, rgb(6, 144, 201), rgb(2, 48, 67));
+  background: linear-gradient(90deg, rgb(2, 48, 67), rgb(6, 144, 201));
   color: white;
 }
 
@@ -53,20 +14,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   cursor: pointer;
 }
 
 .header .flex .logo-container .img-container {
-  height: 5rem;
-  width: 5rem;
-  margin-bottom: 1rem;
-  margin-top: -1rem;
+  height: 3rem;
+  width: 3rem;
 }
 
 .header .flex .logo-container .img-container img {
   object-fit: contain;
-  width: 150%;
+  width: 100%;
 }
 
 .header .flex .logo-container .header-title {
@@ -80,13 +39,8 @@
   color: var(--white);
 }
 
-.header .flex .logo-container .header-title {
+.header .flex .logo-container .header-title .panel {
   color: var(--main-color);
-}
-
-.panel {
-  color: #014c59;
-  font-weight: 500;
 }
 
 .header .flex .navbar a {
@@ -111,12 +65,11 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  position: relative; /* Added for dropdown positioning */
 }
 
 .header .flex .icons > * {
   color: white;
-  font-size: 1.8rem; /* Adjusted for larger user icon */
+  font-size: 1.8rem;
   margin: 0 1rem;
 }
 

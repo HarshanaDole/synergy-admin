@@ -1,14 +1,9 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../css/header.css";
 import { useEffect, useState } from "react";
-import logoImage from "/Synergy/Web/synergy-admin/synergy-admin/frontend/src/admin/images/synergy-logo.png";
-import ConfirmationPopup from "./ConfirmationPopup";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [showLogoutPopup, setShowLogoutpopup] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsActive(!isActive);
@@ -20,10 +15,6 @@ const Header = () => {
     }
   };
 
-  const handleDropdownToggle = () => {
-    setIsDropdownVisible(!isDropdownVisible);
-  };
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
@@ -32,18 +23,13 @@ const Header = () => {
     };
   }, [isActive]);
 
-  const handleLogout = () => {
-    alert("Logged out successfully!");
-    navigate("/admin/login");
-  };
-
   return (
     <header className="header">
       <section className="flex">
         <NavLink to="/admin">
           <div className="logo-container">
             <div className="img-container">
-              <img src={logoImage} alt="synergy-logo" />
+              <img src="/img/synergylogo.png" alt="synergy-logo" />
             </div>
             <div className="header-title">
               <span className="admin">Admin</span>
@@ -87,25 +73,9 @@ const Header = () => {
 
         <div className="icons">
           <i className="ri-menu-line" id="menu-icon" onClick={toggleMenu}></i>
-          <i className="ri-user-3-fill" id="profile-icon" onClick={handleDropdownToggle}></i>
-          {isDropdownVisible && (
-            <div className="dropdown-menu" onMouseLeave={() => setIsDropdownVisible(false)}>
-              <NavLink to="/admin/profile" className="dropdown-item">
-                Manage My Account
-              </NavLink>
-              <div className="dropdown-item" onClick={() => setShowLogoutpopup(true)}>
-                Logout
-              </div>
-
-              {showLogoutPopup && (
-                <ConfirmationPopup
-                message="Are you sure you want to logout?"
-                onCancel={() => setShowLogoutpopup(false)}
-                onConfirm={handleLogout}
-                />
-              )}
-            </div>
-          )}
+          <NavLink to="/admin/profile" className="p">
+            <i className="ri-user-3-fill" id="profile-icon"></i>
+          </NavLink>
         </div>
       </section>
     </header>

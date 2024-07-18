@@ -1,22 +1,9 @@
 import { Link } from "react-router-dom";
 // import "../css/main.css";
 import "../css/login-register.css";
-import React, { useState } from 'react';
-import ActionPopup from "../components/ActionPopup";
 // import { ChangeEvent, FormEvent, useState } from "react";
 
-const Register: React.FC = () => {
-  const [popupData, setPopupData] = useState<{ message: String; type: 'success' | 'error' | 'info'; key: number }[]>([]);
-  const [key, setKey] = useState(0);
-
-  const showPopup = (message: string, type: 'success' | 'error' | 'info') => {
-    setPopupData((prev) => [...prev, { message, type, key }]);
-    setKey((prev) => prev + 1);
-  };
-
-  const handleClosePopup = (key:  number) => {
-    setPopupData((prev) => prev.filter((popup) => popup.key !== key));
-  };
+const Register = () => {
   // const [name, setName] = useState<string>();
   // const [password, setPassword] = useState<string>();
 
@@ -55,19 +42,9 @@ const Register: React.FC = () => {
             placeholder="Confirm Password"
           />
         </div>
-        <button onClick={() => showPopup('Signup Successful!', 'success')} className="btn" type="submit">
+        <button className="btn" type="submit">
           Register
         </button>
-        {popupData.map((popup) => (
-          <ActionPopup
-          key={popup.key}
-          message={popup.message}
-          duration={5000}
-          onClose={() => handleClosePopup(popup.key)}
-          type={popup.type}
-          showTimerBar
-          />
-        ))}
         <Link to="/admin/login" className="nav-link">
           Login
         </Link>
