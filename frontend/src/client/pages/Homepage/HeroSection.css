@@ -1,0 +1,147 @@
+.hero {
+  position: relative;
+  width: 100vw; /* Full viewport width */
+  overflow: hidden; /* Prevent horizontal scroll */
+}
+
+.hero-slide {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  height: 100vh; /* Full viewport height */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 1; /* Ensure the overlay is above the background but below the content */
+}
+
+.hero-slide1 {
+  background-image: url('/Synergy/Web/synergy-admin/synergy-admin/frontend/src/client/images/Hero1.png');
+}
+
+.hero-slide2 {
+  background-image: url('/Synergy/Web/synergy-admin/synergy-admin/frontend/src/client/images/Hero2.png');
+}
+
+.hero-slide3 {
+  background-image: url('/Synergy/Web/synergy-admin/synergy-admin/frontend/src/client/images/Hero3.png');
+}
+
+.hero-slide .content {
+  position: relative; /* Ensure content is above the overlay */
+  z-index: 2;
+  text-align: left;
+  color: #fff;
+  padding: 6rem; /* Reduced padding */
+  margin-top: 5rem;
+  border-radius: 10px;
+}
+
+.hero-slide h1 {
+  font-size: 2.8rem; /* Adjusted font size */
+  margin-bottom: 3rem;
+  color: #fff;
+  text-align: left;
+}
+
+.hero-slide p {
+  font-size: 1.5rem; /* Adjusted font size */
+  margin-bottom: 2rem;
+}
+
+.hero-slide button {
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  color: #fff;
+  background: transparent;
+  border: 2px solid #014c59;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.hero-slide button:hover {
+  background: #0592c8;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .hero-slide .content {
+    padding: 6rem;
+  }
+  
+  .hero-slide h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-slide p {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-slide .content {
+    padding: 4rem;
+  }
+  
+  .hero-slide h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-slide p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-slide .content {
+    padding-left: 2rem;
+    margin-top: 12rem;
+  }
+  
+  .hero-slide h1 {
+    font-size: 1.5rem;
+  }
+  
+  .hero-slide p {
+    font-size: 0.875rem;
+  }
+  
+  .hero-slide button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-slide .content {
+    padding: 2rem;
+    margin-top: 12rem;
+  }
+  
+  .hero-slide h1 {
+    font-size: 1.25rem;
+  }
+  
+  .hero-slide p {
+    font-size: 0.75rem;
+  }
+  
+  .hero-slide button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+}

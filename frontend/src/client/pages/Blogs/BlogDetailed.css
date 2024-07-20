@@ -1,0 +1,29 @@
+.blog-detailed-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .blog-detailed-image {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  
+  .blog-detailed-content {
+    max-width: 800px;
+    text-align: left;
+  }
+  
+  .blog-detailed-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .blog-detailed-content p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
